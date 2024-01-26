@@ -1,14 +1,25 @@
 {
-  "name": "nodejs-web-app",
-  "version": "0.0.0",
-  "description": "NodejsWebApp",
-  "main": "server.js",
-  "author": {
-    "name": ""
-  },
-  "devDependencies": {
-    "eslint": "^8.21.0"
-  },
-  "eslintConfig": {
-  }
+    "name": "nodejs-web-app",
+    "version": "0.0.0",
+    "description": "NodejsWebApp",
+    "main": "server.js",
+    "author": {
+        "name": ""
+    },
+    "devDependencies": {
+        "eslint": "^8.21.0"
+    },
+    "eslintConfig": {
+    },
+    "scripts": {
+        "-": null,
+        "start": "vite",
+        "+": null,
+        "start": "npx http-server ./dist",
+        "dev": "vite",
+        "build": "vite build",
+        "serve": "vite preview",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build"
+    }
 }
