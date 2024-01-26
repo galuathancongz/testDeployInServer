@@ -12,9 +12,7 @@
     "eslintConfig": {
     },
     "scripts": {
-        "-": null,
         "start": "vite",
-        "+": null,
         "start": "npx http-server ./dist",
         "dev": "vite",
         "build": "vite build",
