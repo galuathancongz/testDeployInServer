@@ -3,11 +3,6 @@
         "express": "^4.18.2"
     },
     "scripts": {
-        "start": "npx http-server ./dist",
-        "dev": "vite",
-        "build": "vite build",
-        "serve": "vite preview",
-        "predeploy": "npm run build",
-        "deploy": "gh-pages -d build"
+        "start": "node server.js"
     }
 }
