@@ -3,19 +3,22 @@ const zmq = require('zeromq');
 async function runServer() {
     const sock = new zmq.Router();
 
-    // Bind Router t?i ??a ch? và c?ng
     await sock.bind('tcp://*:3000');
 
-    console.log('Server is listening on port 5555');
+    console.log('Server is listening on port 3000');
 
-    for await (const [clientId, empty, request] of sock) {
-        console.log(`Received request from client ${clientId}: ${request}`);
+    for await (const [clientId,empty,request] of sock) {
+        //if (request !== undefined) {
+        //    const messageContent = request.toString('utf8');
+        //    console.log('Received message content:', messageContent);
+        //} else {
+        //    console.log('Empty message received!');
+        //}
         await sock.send([clientId, empty, request]);
     }
 }
 
 function getNextClientId(currentClientId) {
-    // Trong ví d? này, chúng ta ??n gi?n ch? ??i ch? gi?a hai client
     return currentClientId === 'A' ? 'C' : 'A';
 }
 
