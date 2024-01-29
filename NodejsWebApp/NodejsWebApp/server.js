@@ -1,11 +1,19 @@
-const express = require('express');
-const app = express();
-const port = process.env.PORT || 3000;
+//  Hello World server
+//  Binds REP socket to tcp://*:5555
+//  Expects "Hello" from client, replies with "World"
 
-app.get('/apitest', (req, res) => {
-    res.send('HelloWord! Day la API test');
-});
-//
-app.listen(port, () => {
-    console.log(`ServerRunning in :${port}`);
-});
+const zmq = require('zeromq');
+
+async function runServer() {
+    const sock = new zmq.Reply();
+
+    await sock.bind('tcp://*:3000');
+
+    for await (const [msg] of sock) {
+        console.log('Received ' + ': [' + msg.toString() + ']');
+        await sock.send('World');
+        // Do some 'work'
+    }
+}
+
+runServer();
