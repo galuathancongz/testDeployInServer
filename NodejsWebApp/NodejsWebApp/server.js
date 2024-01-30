@@ -1,25 +1,23 @@
 const zmq = require('zeromq');
 
-async function runServer() {
-    const sock = new zmq.Router();
+async function runQueue() {
+    const queue = new zmq.Dealer();
 
-    await sock.bind('tcp://*:3000');
+    // Bind queue to listen for incoming requests from clients
+    await queue.bind('tcp://*:3000');
+    console.log('Queue is listening on port 5555');
 
-    console.log('Server is listening on port 3000');
+    while (true) {
+        // Receive request from client
+        const request = await queue.receive();
 
-    for await (const [clientId,empty,request] of sock) {
-        //if (request !== undefined) {
-        //    const messageContent = request.toString('utf8');
-        //    console.log('Received message content:', messageContent);
-        //} else {
-        //    console.log('Empty message received!');
-        //}
-        await sock.send([clientId, empty, request]);
+        console.log('Received response:');
+
+        // Forward the request to the next stage (Worker)
+        await queue.send(request);
+
+        console.log('Received response:');
     }
 }
 
-function getNextClientId(currentClientId) {
-    return currentClientId === 'A' ? 'C' : 'A';
-}
-
-runServer();
+runQueue().catch((err) => console.error('Error in Queue:', err));
