@@ -28,9 +28,21 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="broker.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="service.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="server.js" />
     <Content Include="package.json" />
     <Content Include="README.md" />
+    <Content Include="types.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="worker.js">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
   <ProjectExtensions>
