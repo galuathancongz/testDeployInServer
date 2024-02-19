@@ -25,18 +25,6 @@ async function main() {
             }
         }
        
-
-        //// Chuy?n ti?p yêu c?u t? client t?i worker
-        //const workerReply = ["", workerId, ...request.slice(2)]; // Lo?i b? clientId, thêm workerId vào ph?n tr? l?i
-        //await socket.send([workerId, "", ...workerReply]);
-
-        //console.log(`Forwarded request to worker ${workerId}`);
-
-        //// Nh?n k?t qu? t? worker và tr? l?i cho client
-        //const [_, , clientIdAgain, , ...response] = await socket.receive();
-        //await socket.send([clientIdAgain, "", ...response]);
-
-        //console.log(`Sent response to client ${clientIdAgain}`);
     }
 }
 
