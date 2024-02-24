@@ -7,7 +7,7 @@ async function main() {
     console.log(`Starting broker on ${brokerAddress}`);
     await socket.bind(brokerAddress);
 
-    for await (const [clientId,"", request] of socket) {
+    for await (const [clientId,, request] of socket) {
         console.log(`Received request from client ${clientId}`);
         // Convert tu byte array sang struct
         if (isValidJSONString(request)) {
