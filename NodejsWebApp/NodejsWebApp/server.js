@@ -22,7 +22,7 @@ async function main() {
                     await socket.send([workerId, "", request]);
                 }
             } else {
-                console.log(`Du lieu khong phai struct MyStruct`);
+                console.log(`Du lieu khong phai struct MyStruct ${data.toString()}`);
                 const errorMessage = "Du lieu khong phai";
                 await socket.send([clientId, "", errorMessage]);
             }
