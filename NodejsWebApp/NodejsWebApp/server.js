@@ -7,8 +7,8 @@ async function main() {
     console.log(`Starting broker on ${brokerAddress}`);
     await socket.bind(brokerAddress);
 
-    for await (const [clientId, , request] of socket) {
-        console.log(`Received request from client ${clientId}: ${request.toString()}`);
+    for await (const [clientId,"", request] of socket) {
+        console.log(`Received request from client ${clientId}`);
         // Convert tu byte array sang struct
         if (isValidJSONString(request)) {
             const data = byteArrayToStruct(request);
@@ -30,7 +30,6 @@ async function main() {
         else
         {
             console.log(`Du lieu khong phai struct`);
-            // Ví d?: G?i l?i cho client v?i thông báo l?i
             const errorMessage = "Du lieu khong hop le";
             await socket.send([clientId, "", errorMessage]);
         }
