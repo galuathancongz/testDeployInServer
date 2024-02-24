@@ -11,18 +11,28 @@ async function main() {
         console.log(`Received request from client ${clientId}: ${request.toString()}`);
         // Convert tu byte array sang struct
         if (isValidJSONString(request)) {
-            const mystruct = byteArrayToStruct(request);
-            // check clientId co phai la worker khong
-            if (clientId.toString().includes("worker")) {
-                // Neu clientID la worker, ban lai cho client
-                const clientIdAgain = mystruct.clientId;
-                await socket.send([clientIdAgain, "", request])
+            const data = byteArrayToStruct(request);
+
+            if (data.hasOwnProperty("clientId") && data.hasOwnProperty("workerId")) {
+                if (clientId.toString().includes("worker")) {
+                    const clientIdAgain = data.clientId;
+                    await socket.send([clientIdAgain, "", request]);
+                } else {
+                    const workerId = data.workerId;
+                    await socket.send([workerId, "", request]);
+                }
+            } else {
+                console.log(`Du lieu khong phai struct MyStruct`);
+                const errorMessage = "Du lieu khong phai";
+                await socket.send([clientId, "", errorMessage]);
             }
-            else {
-                // Khong phai la worker thi ban cho worker
-                const workerId = mystruct.workerId;
-                await socket.send([workerId, "", request])
-            }
+        }
+        else
+        {
+            console.log(`Du lieu khong phai struct`);
+            // Ví d?: G?i l?i cho client v?i thông báo l?i
+            const errorMessage = "Du lieu khong hop le";
+            await socket.send([clientId, "", errorMessage]);
         }
        
     }
